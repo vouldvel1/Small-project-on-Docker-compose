@@ -1,5 +1,7 @@
-package org.example.smallprojectondockercompose;
+package org.example.smallprojectondockercompose.Controllers;
 
+import org.example.smallprojectondockercompose.Models.Tutorial;
+import org.example.smallprojectondockercompose.Repositories.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 
-@RestController
-@RequestMapping("/api")
+//@RestController
+//@RequestMapping("/api")
 public class TutorialController {
 
-    @Autowired
+    //@Autowired
     TutorialRepository tutorialRepository;
 
     @GetMapping("/tutorials")
@@ -94,9 +96,23 @@ public class TutorialController {
     }
 
     @GetMapping("/tutorials/published")
-    public ResponseEntity<List<Tutorial>> findByPublished() {
+    public ResponseEntity<List<Tutorial>> findByPublished(@RequestParam(required = false) boolean published) {
         try {
-            List<Tutorial> tutorials = tutorialRepository.findByPublished(true);
+            List<Tutorial> tutorials = tutorialRepository.findByPublished(published);
+
+            if (tutorials.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(tutorials, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/tutorials")
+    public ResponseEntity<List<Tutorial>> findAll() {
+        try {
+            List<Tutorial> tutorials = tutorialRepository.findAll();
 
             if (tutorials.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

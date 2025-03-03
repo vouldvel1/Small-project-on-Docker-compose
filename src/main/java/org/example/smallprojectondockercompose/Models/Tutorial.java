@@ -1,4 +1,4 @@
-package org.example.smallprojectondockercompose;
+package org.example.smallprojectondockercompose.Models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,6 +8,13 @@ public class Tutorial {
     @Id
     private String id;
 
+    private String login;
+    private String password;
+
+    private String name;
+    private String surName;
+    private String Image;
+
     private String title;
     private String description;
     private boolean published;
@@ -16,10 +23,57 @@ public class Tutorial {
 
     }
 
+    public Tutorial(String login, String password, String name, String surName) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surName = surName;
+    }
+
     public Tutorial(String title, String description, boolean published) {
         this.title = title;
         this.description = description;
         this.published = published;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurName() {
+        return surName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 
     public String getId() {
